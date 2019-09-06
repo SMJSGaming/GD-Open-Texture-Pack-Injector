@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 /*
 TODO
--Make the auto update
+-Make the final touches for the auto updater
 -Auto folder generator
--error stack detouring
+-Error stack detouring
  */
 
 public class Main extends JPanel {
