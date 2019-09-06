@@ -4,15 +4,35 @@ import java.io.*;
 import java.net.URL;
 
 public class Updater extends JPanel {
-    public static void checkupdate() {
-        String filename = new java.io.File(Updater.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
-        String [] versionbad = filename.split("-V");
-        if (versionbad.length >= 2) {
-            String [] version = versionbad[1].split(".jar");
-            
+    public static String version = "";
+    public static String oldjar = new java.io.File(Updater.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getName();
+    public static String urlstring = "";
+    public static boolean checkupdate() {
+        boolean check = false;
+        try {
+            String[] versionbad = oldjar.split("-V");
+            if (versionbad.length >= 2) {
+                String[] odlversion = versionbad[1].split(".jar");
+                String[] line = new String[10];
+                int counter = 0;
+                URL url = new URL("https://smjs.eu/gd/tp%20injector/version.txt");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+                while ((line[counter] = bufferedReader.readLine()) != null) {
+                    counter++;
+                }
+                bufferedReader.close();
+                if (!odlversion[0].equals(line[0])) {
+                    check = true;
+                    version = line[0];
+                    urlstring = line[1];
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return check;
     }
-    private static void Updater(String version, String oldversion ,String urlstring) {
+    public static void Updater() {
         JFrame frame = new JFrame("Auto TP Injector Updater");
         JPanel panel = panel();
         JProgressBar progress = progress();
@@ -32,7 +52,7 @@ public class Updater extends JPanel {
                         try {
                             text2.setText("<html><b>deleting old file...</b></html>");
                             progress.setValue(100);
-                            Runtime.getRuntime().exec("cmd /c ping 127.0.0.1 -n 3 > nul && del TP-Injector-V" + oldversion + ".jar");
+                            Runtime.getRuntime().exec("cmd /c ping 127.0.0.1 -n 3 > nul && del " + oldjar);
                             System.exit(0);
                         } catch (IOException e) {
                             e.printStackTrace();
