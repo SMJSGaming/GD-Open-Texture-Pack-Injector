@@ -1,12 +1,6 @@
 # GD-Open-Texture-Pack-Injector
 An open source smooth texture pack injector for gd with easy configuration
 
-# Todo
-<ul>
-  <li>Finish testing</li>
-  <li>Making the preview video</li>
-</ul>
-
 # How to use
 To use this project for own use put the [version file](server/version.txt) on a website and edit the second line to the link of your jar file
 <br><br>
